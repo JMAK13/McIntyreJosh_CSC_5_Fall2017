@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 using namespace std;
 
 //User Libraries
@@ -22,8 +23,8 @@ int main(int argc, char** argv) {
 
     //Declare Variables
     int s1=0, s2=0, d1, d2, d3, d4, d5, d6, player = 1, i1, i2;     //Score, Dice, and Player Variables
-    bool running = true;                                        //Game Loop Expression
-    int dec;                                                    //Decision Variable
+    bool running = true;                                            //Game Loop Expression
+    int dec;                                                        //Decision Variable
     
     //Prompts User to Start/Exit
     do {
@@ -130,6 +131,15 @@ int main(int argc, char** argv) {
         //Checks for Winner
         if (s1 >= 10000) {
             cout<<"Player "<<player<<" Wins!\n";
+            
+            //Save Score in File
+            ofstream outputFile;
+            outputFile.open("Scores.txt");
+            outputFile<<"Player 1's Score: "<<s1<<" | Player 2's Score: "<<s2<<"\n";
+            outputFile.close();
+            
+            
+            //Exit Game and Program
             running = false;
             return 0;
         }
@@ -184,6 +194,15 @@ int main(int argc, char** argv) {
         //Checks for Winner
         if (s2 >= 10000) {
             cout<<"Player "<<player<<" Wins!\n";
+            
+            //Save Score in File
+            ofstream outputFile;
+            outputFile.open("Scores.txt");
+            outputFile<<"Player 1's Score: "<<s1<<" | Player 2's Score: "<<s2<<"\n";
+            outputFile.close();
+            
+            
+            //Exit Game and Program
             running = false;
             return 0;
         }
