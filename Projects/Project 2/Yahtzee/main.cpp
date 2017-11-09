@@ -143,10 +143,9 @@ int main(int argc, char** argv) {
         //Game Loop
         while (running) {
             
-        }  
+        }
     }
     
     //Exits Program
     return 0;
 }
-
