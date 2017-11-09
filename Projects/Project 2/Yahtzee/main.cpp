@@ -6,6 +6,8 @@
  */
 
 //Function Prototypes
+void swapPl(int &);
+void rollDice(int &);
 
 //Global Constants
 
@@ -23,7 +25,7 @@ int main(int argc, char** argv) {
     //Declare Variables
     int player=1, ones=0, twos=0, threes=0, fours=0, fives=0, sixes=0, roll1, roll2, roll3, roll4, roll5, roll6, score1, score2;    //Declare Necessary Pre-Game Variables
     int fh1=-1,fh2=-1,ls1=-1,ls2=-1,ss1=-1,ss2=-1,threeK1=-1,threeK2=-1,fourK1=-1,fourK2=-1,fiveK1=-1,fiveK2=-1;                    //The Upper Level Scoring Variables
-    bool running=true;      //Game Loop Expression Variable
+    bool running=true;                //Game Loop Expression Variable
     int initial,sum1,sum2;            //Initial Variable to Either Start or Exit the Game
     
     //Validate Input
@@ -114,7 +116,7 @@ int main(int argc, char** argv) {
             cout<<"Sum: "<<sum1<<endl;
 
             //Swap Players
-            player+=1;
+            swapPl(player);
 
             //Player 2
             cout<<"Both players will now roll the dice, add them up, and whoever rolled higher will go first."<<endl;
@@ -148,4 +150,9 @@ int main(int argc, char** argv) {
     
     //Exits Program
     return 0;
+}
+
+void swapPl(int &player) {
+    if (player == 1) player = 2;
+    else player = 1;
 }
