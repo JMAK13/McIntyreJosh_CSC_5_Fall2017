@@ -149,6 +149,8 @@ int main(int argc, char** argv) {
             //Display Score Board
             cout<<endl<<endl<<endl;
             cout<<"----UPPER SECTION----"<<endl;
+            if (player==1)cout<<"Box      |Pl 1 |Pl 2 "<<endl;
+            else if (player == 2) cout<<"Box      |Pl 2 |Pl 1 "<<endl;
             if (ones1 == -1 && ones2 == -1) cout<<"1) Ones  |     |     "<<endl;
             else if (ones1 == -1 && ones2 != -1) cout<<"1) Ones  |     |  "<<ones2<<endl;
             else if (ones1 != -1 && ones2 != -1) cout<<"1) Ones  |  "<<ones1<<"  |  "<<ones2<<endl;
@@ -430,6 +432,8 @@ int main(int argc, char** argv) {
             //Display Score Board
             cout<<endl<<endl<<endl;
             cout<<"----UPPER SECTION----"<<endl;
+            if (player==1)cout<<"Box      |Pl 2 |Pl 1 "<<endl;
+            else if (player==2) cout<<"Box      |Pl 1 |Pl 2 "<<endl;
             if (ones1 == -1 && ones2 == -1) cout<<"1) Ones  |     |     "<<endl;
             else if (ones1 == -1 && ones2 != -1) cout<<"1) Ones  |     |  "<<ones2<<endl;
             else if (ones1 != -1 && ones2 != -1) cout<<"1) Ones  |  "<<ones1<<"  |  "<<ones2<<endl;
