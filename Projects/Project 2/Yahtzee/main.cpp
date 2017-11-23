@@ -7,7 +7,6 @@
 
 //Function Prototypes
 void swapPl(int &);
-void rollDice(int &);
 
 //Global Constants
 
@@ -25,7 +24,7 @@ int main(int argc, char** argv) {
 
     //Declare Variables
     int player=1, ones=0, twos=0, threes=0, fours=0, fives=0, sixes=0, roll1, roll2, roll3, roll4, roll5, score1, score2;               //Declare Necessary Pre-Game Variables
-    int ones1=-1, ones2=-1, twos1=-1, twos2=-1, threes1=-1, threes2=-1, fours1=-1, fours2=-1, five1=-1, fives2=-1, sixes1=-1, sixes2=-1;//The Upper Level Scoring Variables
+    int ones1=-1, ones2=-1, twos1=-1, twos2=-1, threes1=-1, threes2=-1, fours1=-1, fours2=-1, fives1=-1, fives2=-1, sixes1=-1, sixes2=-1;//The Upper Level Scoring Variables
     int fh1=-1, fh2=-1, ls1=-1, ls2=-1, ss1=-1, ss2=-1, threeK1=-1, threeK2=-1, fourK1=-1, fourK2=-1, fiveK1=-1, fiveK2=-1;             //The Lower Level Scoring Variables
     bool running=true;                                                                                                                  //Game Loop Expression Variable
     int initial, sum1, sum2;                                                                                                            //Initial Variable to Either Start or Exit the Game
@@ -147,27 +146,33 @@ int main(int argc, char** argv) {
             
             int dec = 0;
             
-            //First Player's Turn
-            cout<<"Player "<<player<<": Please press enter to roll the dice";
-            cin.get();
-            roll1=(rand()%6)+1;
-            roll2=(rand()%6)+1;
-            roll3=(rand()%6)+1;
-            roll4=(rand()%6)+1;
-            roll5=(rand()%6)+1;
-            cout<<"Roll 1: "<<roll1<<" | Roll 2: "<<roll2<<" | Roll 3: "<<roll3<<" | Roll 4: "<<roll4<<" | Roll 5: "<<roll5<<endl<<endl;
-            
             //Display Score Board
+            cout<<endl<<endl<<endl;
             cout<<"----UPPER SECTION----"<<endl;
-            if (ones1 == -1 && ones2 == -1) cout<<"1) Ones|     |     "<<endl;
-            else if (ones1 == -1 && ones2 != -1) cout<<"1) Ones|     |  "<<ones2<<endl;
-            else if (ones1 != -1 && ones2 != -1) cout<<"1) Ones|  "<<ones1<<"  |  "<<ones2<<endl;
-            else if (ones1 != -1 && ones2 == -1) cout<<"1) Ones|  "<<ones1<<"  |     "<<endl;
-            cout<<setw(8)<<"2) Twos|"<<endl;
-            cout<<setw(8)<<"3) Threes|"<<endl;
-            cout<<setw(8)<<"4) Fours|"<<endl;
-            cout<<setw(8)<<"5) Fives|"<<endl;
-            cout<<setw(8)<<"6) Sixes|"<<endl;
+            if (ones1 == -1 && ones2 == -1) cout<<"1) Ones  |     |     "<<endl;
+            else if (ones1 == -1 && ones2 != -1) cout<<"1) Ones  |     |  "<<ones2<<endl;
+            else if (ones1 != -1 && ones2 != -1) cout<<"1) Ones  |  "<<ones1<<"  |  "<<ones2<<endl;
+            else if (ones1 != -1 && ones2 == -1) cout<<"1) Ones  |  "<<ones1<<"  |     "<<endl;
+            if (twos1 == -1 && twos2 == -1) cout<<"2) Twos  |     |     "<<endl;
+            else if (twos1 == -1 && twos2 != -1) cout<<"2) Twos  |     |  "<<twos2<<endl;
+            else if (twos1 != -1 && twos2 != -1) cout<<"2) Twos  |  "<<twos1<<"  |  "<<twos2<<endl;
+            else if (twos1 != -1 && twos2 == -1) cout<<"2) Twos  |  "<<twos1<<"  |     "<<endl;
+            if (threes1 == -1 && threes2 == -1) cout<<"3) Threes|     |     "<<endl;
+            else if (threes1 == -1 && threes2 != -1) cout<<"3) Threes|     |  "<<threes2<<endl;
+            else if (threes1 != -1 && threes2 != -1) cout<<"3) Threes|  "<<threes1<<"  |  "<<threes2<<endl;
+            else if (threes1 != -1 && threes2 == -1) cout<<"3) Threes|  "<<threes1<<"  |     "<<endl;
+            if (fours1 == -1 && fours2 == -1) cout<<"4) Fours |     |     "<<endl;
+            else if (fours1 == -1 && fours2 != -1) cout<<"4) Fours |     |  "<<fours2<<endl;
+            else if (fours1 != -1 && fours2 != -1) cout<<"4) Fours |  "<<fours1<<"  |  "<<fours2<<endl;
+            else if (fours1 != -1 && fours2 == -1) cout<<"4) Fours |  "<<fours1<<"  |     "<<endl;
+            if (fives1 == -1 && fives2 == -1) cout<<"5) Fives |     |     "<<endl;
+            else if (fives1 == -1 && fives2 != -1) cout<<"5) Fives |     |  "<<fives2<<endl;
+            else if (fives1 != -1 && fives2 != -1) cout<<"5) Fives |  "<<fives1<<"  |  "<<fives2<<endl;
+            else if (fives1 != -1 && fives2 == -1) cout<<"5) Fives |  "<<fives1<<"  |     "<<endl;
+            if (sixes1 == -1 && sixes2 == -1) cout<<"6) Sixes |     |     "<<endl;
+            else if (sixes1 == -1 && sixes2 != -1) cout<<"6) Sixes |     |  "<<sixes2<<endl;
+            else if (sixes1 != -1 && sixes2 != -1) cout<<"6) Sixes |  "<<sixes1<<"  |  "<<sixes2<<endl;
+            else if (sixes1 != -1 && sixes2 == -1) cout<<"6) Sixes |  "<<sixes1<<"  |     "<<endl;
             cout<<"----LOWER SECTION----"<<endl;
             cout<<setw(8)<<"7) 3 of Kind|"<<endl;
             cout<<setw(8)<<"8) 4 of Kind|"<<endl;
@@ -177,9 +182,141 @@ int main(int argc, char** argv) {
             cout<<setw(8)<<"12) 5 of Kind|"<<endl;
             cout<<setw(8)<<"13) CHANCE|"<<endl;
             
-            //Prompt User to Select a Box
-            cout<<"Please input the number of the box you wish to score: ";
-            cin>>dec;
+            //First Player's Turn
+            cout<<endl<<endl<<endl;
+            cout<<"Player "<<player<<": Please press enter to roll the dice";
+            cin.ignore();
+            cin.get();
+            roll1=(rand()%6)+1;
+            roll2=(rand()%6)+1;
+            roll3=(rand()%6)+1;
+            roll4=(rand()%6)+1;
+            roll5=(rand()%6)+1;
+            cout<<"Roll 1: "<<roll1<<" | Roll 2: "<<roll2<<" | Roll 3: "<<roll3<<" | Roll 4: "<<roll4<<" | Roll 5: "<<roll5<<endl<<endl;
+            
+            //Second Rolls
+            for (int i = 1; i <= 5; i++) {
+                switch (i) {
+                    case 1: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll1=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 2: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll2=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 3: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll3=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 4: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll4=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 5: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll5=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                }
+            }
+            cout<<"Roll 1: "<<roll1<<" | Roll 2: "<<roll2<<" | Roll 3: "<<roll3<<" | Roll 4: "<<roll4<<" | Roll 5: "<<roll5<<endl<<endl;
+            
+            //Third Rolls
+            for (int i = 1; i <= 5; i++) {
+                switch (i) {
+                    case 1: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll1=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 2: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll2=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 3: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll3=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 4: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll4=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 5: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll5=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                }
+            }
+            cout<<"Roll 1: "<<roll1<<" | Roll 2: "<<roll2<<" | Roll 3: "<<roll3<<" | Roll 4: "<<roll4<<" | Roll 5: "<<roll5<<endl<<endl;
             
             //Map First Player's Rolls to Array
             int rolls[ROLLS] = {roll1, roll2, roll3, roll4, roll5};
@@ -197,6 +334,10 @@ int main(int argc, char** argv) {
             //Score First Player's Rolls
             bool invalid = true;
             do {
+                //Prompt User to Select a Box
+                cout<<"Please input the number of the box you wish to score: ";
+                cin>>dec;
+                
                 if (dec == 1) {
                     if (ones1 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
@@ -250,44 +391,69 @@ int main(int argc, char** argv) {
                     }
                 }
                 if (dec == 5) {
-                    if (twos1 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    if (fives1 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
-                        if (twos == 1) twos1=2;
-                        if (twos == 2) twos1=4;
-                        if (twos == 3) twos1=6;
-                        if (twos == 4) twos1=8;
-                        if (twos == 5) twos1=10;
-                        if (twos == 6) twos1=12;
-                        score1+=twos1;
+                        if (fives == 1) fives1=5;
+                        if (fives == 2) fives1=10;
+                        if (fives == 3) fives1=15;
+                        if (fives == 4) fives1=20;
+                        if (fives == 5) fives1=25;
+                        if (fives == 6) fives1=30;
+                        score1+=fives1;
                         invalid=false;
                     }
                 }
                 if (dec == 6) {
-                    if (twos1 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    if (sixes1 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
-                        if (twos == 1) twos1=2;
-                        if (twos == 2) twos1=4;
-                        if (twos == 3) twos1=6;
-                        if (twos == 4) twos1=8;
-                        if (twos == 5) twos1=10;
-                        if (twos == 6) twos1=12;
-                        score1+=twos1;
+                        if (sixes == 1) sixes1=6;
+                        if (sixes == 2) sixes1=12;
+                        if (sixes == 3) sixes1=18;
+                        if (sixes == 4) sixes1=24;
+                        if (sixes == 5) sixes1=30;
+                        if (sixes == 6) sixes1=36;
+                        score1+=sixes1;
                         invalid=false;
                     }
                 }
             } while(invalid);
             
-            //Display Score Board After Decision
+            //Switch Players
+            swapPl(player);
+            ones=0;
+            twos=0;
+            threes=0;
+            fours=0;
+            fives=0;
+            sixes=0;
+            
+            //Display Score Board
+            cout<<endl<<endl<<endl;
             cout<<"----UPPER SECTION----"<<endl;
-            if (ones1 == -1 && ones2 == -1) cout<<"1) Ones|     |     "<<endl;
-            else if (ones1 == -1 && ones2 != -1) cout<<"1) Ones|     |  "<<ones2<<endl;
-            else if (ones1 != -1 && ones2 != -1) cout<<"1) Ones|  "<<ones1<<"  |  "<<ones2<<endl;
-            else if (ones1 != -1 && ones2 == -1) cout<<"1) Ones|  "<<ones1<<"  |     "<<endl;
-            cout<<setw(8)<<"2) Twos|"<<endl;
-            cout<<setw(8)<<"3) Threes|"<<endl;
-            cout<<setw(8)<<"4) Fours|"<<endl;
-            cout<<setw(8)<<"5) Fives|"<<endl;
-            cout<<setw(8)<<"6) Sixes|"<<endl;
+            if (ones1 == -1 && ones2 == -1) cout<<"1) Ones  |     |     "<<endl;
+            else if (ones1 == -1 && ones2 != -1) cout<<"1) Ones  |     |  "<<ones2<<endl;
+            else if (ones1 != -1 && ones2 != -1) cout<<"1) Ones  |  "<<ones1<<"  |  "<<ones2<<endl;
+            else if (ones1 != -1 && ones2 == -1) cout<<"1) Ones  |  "<<ones1<<"  |     "<<endl;
+            if (twos1 == -1 && twos2 == -1) cout<<"2) Twos  |     |     "<<endl;
+            else if (twos1 == -1 && twos2 != -1) cout<<"2) Twos  |     |  "<<twos2<<endl;
+            else if (twos1 != -1 && twos2 != -1) cout<<"2) Twos  |  "<<twos1<<"  |  "<<twos2<<endl;
+            else if (twos1 != -1 && twos2 == -1) cout<<"2) Twos  |  "<<twos1<<"  |     "<<endl;
+            if (threes1 == -1 && threes2 == -1) cout<<"3) Threes|     |     "<<endl;
+            else if (threes1 == -1 && threes2 != -1) cout<<"3) Threes|     |  "<<threes2<<endl;
+            else if (threes1 != -1 && threes2 != -1) cout<<"3) Threes|  "<<threes1<<"  |  "<<threes2<<endl;
+            else if (threes1 != -1 && threes2 == -1) cout<<"3) Threes|  "<<threes1<<"  |     "<<endl;
+            if (fours1 == -1 && fours2 == -1) cout<<"4) Fours |     |     "<<endl;
+            else if (fours1 == -1 && fours2 != -1) cout<<"4) Fours |     |  "<<fours2<<endl;
+            else if (fours1 != -1 && fours2 != -1) cout<<"4) Fours |  "<<fours1<<"  |  "<<fours2<<endl;
+            else if (fours1 != -1 && fours2 == -1) cout<<"4) Fours |  "<<fours1<<"  |     "<<endl;
+            if (fives1 == -1 && fives2 == -1) cout<<"5) Fives |     |     "<<endl;
+            else if (fives1 == -1 && fives2 != -1) cout<<"5) Fives |     |  "<<fives2<<endl;
+            else if (fives1 != -1 && fives2 != -1) cout<<"5) Fives |  "<<fives1<<"  |  "<<fives2<<endl;
+            else if (fives1 != -1 && fives2 == -1) cout<<"5) Fives |  "<<fives1<<"  |     "<<endl;
+            if (sixes1 == -1 && sixes2 == -1) cout<<"6) Sixes |     |     "<<endl;
+            else if (sixes1 == -1 && sixes2 != -1) cout<<"6) Sixes |     |  "<<sixes2<<endl;
+            else if (sixes1 != -1 && sixes2 != -1) cout<<"6) Sixes |  "<<sixes1<<"  |  "<<sixes2<<endl;
+            else if (sixes1 != -1 && sixes2 == -1) cout<<"6) Sixes |  "<<sixes1<<"  |     "<<endl;
             cout<<"----LOWER SECTION----"<<endl;
             cout<<setw(8)<<"7) 3 of Kind|"<<endl;
             cout<<setw(8)<<"8) 4 of Kind|"<<endl;
@@ -296,6 +462,251 @@ int main(int argc, char** argv) {
             cout<<setw(8)<<"11) Large Straight|"<<endl;
             cout<<setw(8)<<"12) 5 of Kind|"<<endl;
             cout<<setw(8)<<"13) CHANCE|"<<endl;
+            
+            //Second Player's Turn
+            cout<<endl<<endl<<endl;
+            cout<<"Player "<<player<<": Please press enter to roll the dice";
+            cin.ignore();
+            cin.get();
+            roll1=(rand()%6)+1;
+            roll2=(rand()%6)+1;
+            roll3=(rand()%6)+1;
+            roll4=(rand()%6)+1;
+            roll5=(rand()%6)+1;
+            cout<<"Roll 1: "<<roll1<<" | Roll 2: "<<roll2<<" | Roll 3: "<<roll3<<" | Roll 4: "<<roll4<<" | Roll 5: "<<roll5<<endl<<endl;
+            
+            //Second Rolls
+            for (int i = 1; i <= 5; i++) {
+                switch (i) {
+                    case 1: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll1=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 2: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll2=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 3: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll3=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 4: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll4=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 5: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll5=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                }
+            }
+            cout<<"Roll 1: "<<roll1<<" | Roll 2: "<<roll2<<" | Roll 3: "<<roll3<<" | Roll 4: "<<roll4<<" | Roll 5: "<<roll5<<endl<<endl;
+            
+            //Third Rolls
+            for (int i = 1; i <= 5; i++) {
+                switch (i) {
+                    case 1: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll1=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 2: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll2=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 3: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll3=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 4: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll4=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                    case 5: {
+                        int reroll;
+                        do {
+                            cout<<"Press 0 to re-roll Roll "<<i<<" or 1 to keep it as is: ";
+                            cin>>reroll;
+                        } while(reroll != 0 && reroll != 1);
+                        if (reroll==0) {
+                            roll5=(rand()%6)+1;
+                        }
+                        break;
+                    }
+                }
+            }
+            cout<<"Roll 1: "<<roll1<<" | Roll 2: "<<roll2<<" | Roll 3: "<<roll3<<" | Roll 4: "<<roll4<<" | Roll 5: "<<roll5<<endl<<endl;
+            
+            //Map Second Player's Rolls to Array
+            int rolls2[ROLLS] = {roll1, roll2, roll3, roll4, roll5};
+        
+            //Count First Player's Dice
+            for (int i = 0; i < ROLLS; i++) {
+                if (rolls2[i] == 1) ones++;
+                if (rolls2[i] == 2) twos++;
+                if (rolls2[i] == 3) threes++;
+                if (rolls2[i] == 4) fours++;
+                if (rolls2[i] == 5) fives++;
+                if (rolls2[i] == 6) sixes++;
+            }
+            
+            //Score Second Player's Rolls
+            invalid = true;
+            do {
+                //Prompt User to Select a Box
+                cout<<"Please input the number of the box you wish to score: ";
+                cin>>dec;
+                
+                if (dec == 1) {
+                    if (ones2 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        if (ones == 1) ones2=1;
+                        if (ones == 2) ones2=2;
+                        if (ones == 3) ones2=3;
+                        if (ones == 4) ones2=4;
+                        if (ones == 5) ones2=5;
+                        if (ones == 6) ones2=6;
+                        score2+=ones2;
+                        invalid=false;
+                    }
+                }
+                if (dec == 2) {
+                    if (twos2 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        if (twos == 1) twos2=2;
+                        if (twos == 2) twos2=4;
+                        if (twos == 3) twos2=6;
+                        if (twos == 4) twos2=8;
+                        if (twos == 5) twos2=10;
+                        if (twos == 6) twos2=12;
+                        score2+=twos2;
+                        invalid=false;
+                    }
+                }
+                if (dec == 3) {
+                    if (threes2 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        if (threes == 1) threes2=3;
+                        if (threes == 2) threes2=6;
+                        if (threes == 3) threes2=9;
+                        if (threes == 4) threes2=12;
+                        if (threes == 5) threes2=15;
+                        if (threes == 6) threes2=18;
+                        score2+=threes2;
+                        invalid=false;
+                    }
+                }
+                if (dec == 4) {
+                    if (fours2 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        if (fours == 1) fours2=4;
+                        if (fours == 2) fours2=8;
+                        if (fours == 3) fours2=12;
+                        if (fours == 4) fours2=16;
+                        if (fours == 5) fours2=20;
+                        if (fours == 6) fours2=24;
+                        score2+=fours2;
+                        invalid=false;
+                    }
+                }
+                if (dec == 5) {
+                    if (fives2 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        if (fives == 1) fives2=5;
+                        if (fives == 2) fives2=10;
+                        if (fives == 3) fives2=15;
+                        if (fives == 4) fives2=20;
+                        if (fives == 5) fives2=25;
+                        if (fives == 6) fives2=30;
+                        score2+=fives2;
+                        invalid=false;
+                    }
+                }
+                if (dec == 6) {
+                    if (sixes2 != -1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        if (sixes == 1) sixes2=6;
+                        if (sixes == 2) sixes2=12;
+                        if (sixes == 3) sixes2=18;
+                        if (sixes == 4) sixes2=24;
+                        if (sixes == 5) sixes2=30;
+                        if (sixes == 6) sixes2=36;
+                        score2+=sixes2;
+                        invalid=false;
+                    }
+                }
+            } while(invalid);
+            
+            //Switch Players
+            swapPl(player);
+            ones=0;
+            twos=0;
+            threes=0;
+            fours=0;
+            fives=0;
+            sixes=0;
         }
     }
     
