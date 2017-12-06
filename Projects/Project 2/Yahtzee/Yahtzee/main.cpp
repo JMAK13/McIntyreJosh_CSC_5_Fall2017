@@ -26,7 +26,7 @@ void displayBoard(int[2][13], const int &, string &, string &);
 int main(int argc, char** argv) {
 
     //Declare Variables
-    int player=1,ones=0,twos=0,threes=0,fours=0,fives=0,sixes=0,score1,score2;
+    int player=1,ones=0,twos=0,threes=0,fours=0,fives=0,sixes=0,score1=0,score2=0;
     bool running=true;
     int initial,sum1,sum2;
     const int ROW=2;
@@ -35,12 +35,13 @@ int main(int argc, char** argv) {
     const int MAX=5;
     int rolls[MAX]={};
     string header1,header2;
+    int turns=0;
     
     //Validate Input
     do {
         //Prompt User to Exit/Start/See Rules
         cout<<"Hello and Welcome to Yahtzee by Josh McIntyre!"<<endl;
-        cout<<"Make sure your output prompt is very large or else you may miss some content!"<<endl;
+        cout<<"<---IMPORTANT--->: Make sure your output prompt is very large or else you may miss some content!"<<endl;
         cout<<"Press 0 to Exit"<<endl;
         cout<<"Press 1 to Start"<<endl;
         cout<<"Press 2 for Rules"<<endl;
@@ -146,14 +147,8 @@ int main(int argc, char** argv) {
         while (running) {
             
             int dec=0;
-            if (player==1) {
-                header1="Box       |Pl 1 |Pl 2 ";
-                header2="Box             |Pl 1 |Pl 2 ";
-            }
-            else {
-                header1="Box       |Pl 2 |Pl 1 ";
-                header2="Box             |Pl 1 |Pl 2 ";
-            }
+            header1="Box       |Pl 1 |Pl 2 ";
+            header2="Box             |Pl 1 |Pl 2 ";
             
             //Display Score Board
             displayBoard(scores, COL, header1, header2);
@@ -409,7 +404,7 @@ int main(int argc, char** argv) {
                 if (dec==8) {
                     if (scores[player-1][7]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
-                        if (ones==1&&twos==1&&threes==1&&fours==1&&fives==1) scores[player-1][7]=40;
+                        if ((ones==1&&twos==1&&threes==1&&fours==1&&fives==1)||(twos==1&&threes==1&&fours==1&&fives==1&&sixes==1)) scores[player-1][7]=40;
                         else scores[player-1][7]=0;
                         score1+=scores[player-1][7];
                         invalid=false;
@@ -423,6 +418,7 @@ int main(int argc, char** argv) {
                         else if (threes==3) scores[player-1][8]=9;
                         else if (fours==3) scores[player-1][8]=12;
                         else if (fives==3) scores[player-1][8]=15;
+                        else if (sixes==3) scores[player-1][8]=18;
                         else scores[player-1][8]=0;
                         score1+=scores[player-1][8];
                         invalid=false;
@@ -436,6 +432,7 @@ int main(int argc, char** argv) {
                         else if (threes==4) scores[player-1][9]=12;
                         else if (fours==4) scores[player-1][9]=16;
                         else if (fives==4) scores[player-1][9]=20;
+                        else if (sixes==4) scores[player-1][9]=24;
                         else scores[player-1][9]=0;
                         score1+=scores[player-1][9];
                         invalid=false;
@@ -444,11 +441,31 @@ int main(int argc, char** argv) {
                 if (dec==11) {
                     if (scores[player-1][10]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
-                        if ((ones==5)||(twos==5)||(threes==5)||(fours==5)||(fives==5)) scores[player-1][10]=50;
+                        if ((ones==5)||(twos==5)||(threes==5)||(fours==5)||(fives==5)||(sixes==5)) scores[player-1][10]=50;
                         else scores[player-1][10]=0;
                         score1+=scores[player-1][10];
                         invalid=false;
                     }
+                }
+                if (dec==12) {
+                    if (scores[player-1][11]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        /*if ((ones==5)||(twos==5)||(threes==5)||(fours==5)||(fives==5)) scores[player-1][11]=50;
+                        else scores[player-1][11]=0;
+                        score2+=scores[player-1][11];*/
+                        invalid=false;
+                    } 
+                }
+                if (dec==13) {
+                    int sum=0;
+                    if (scores[player-1][12]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        sum=(ones*1)+(twos*2)+(threes*3)+(fours*4)+(fives*5)+(sixes*6);
+                        scores[player-1][12]=sum;
+                        score2+=scores[player-1][12];
+                       
+                        invalid=false;
+                    }  
                 }
             } while(invalid);
             
@@ -716,7 +733,7 @@ int main(int argc, char** argv) {
                 if (dec==8) {
                     if (scores[player-1][7]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
-                        if (ones==1&&twos==1&&threes==1&&fours==1&&fives==1) scores[player-1][7]=40;
+                        if ((ones==1&&twos==1&&threes==1&&fours==1&&fives==1)||(twos==1&&threes==1&&fours==1&&fives==1&&sixes==1)) scores[player-1][7]=40;
                         else scores[player-1][7]=0;
                         score2+=scores[player-1][7];
                         invalid=false;
@@ -730,6 +747,7 @@ int main(int argc, char** argv) {
                         else if (threes==3) scores[player-1][8]=9;
                         else if (fours==3) scores[player-1][8]=12;
                         else if (fives==3) scores[player-1][8]=15;
+                        else if (sixes==3) scores[player-1][8]=18;
                         else scores[player-1][8]=0;
                         score2+=scores[player-1][8];
                         invalid=false;
@@ -743,6 +761,7 @@ int main(int argc, char** argv) {
                         else if (threes==4) scores[player-1][9]=12;
                         else if (fours==4) scores[player-1][9]=16;
                         else if (fives==4) scores[player-1][9]=20;
+                        else if (sixes==4) scores[player-1][9]=24;
                         else scores[player-1][9]=0;
                         score2+=scores[player-1][9];
                         invalid=false;
@@ -751,11 +770,31 @@ int main(int argc, char** argv) {
                 if (dec==11) {
                     if (scores[player-1][10]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
-                        if ((ones==5)||(twos==5)||(threes==5)||(fours==5)||(fives==5)) scores[player-1][10]=50;
+                        if ((ones==5)||(twos==5)||(threes==5)||(fours==5)||(fives==5)||(sixes==5)) scores[player-1][10]=50;
                         else scores[player-1][10]=0;
                         score2+=scores[player-1][10];
                         invalid=false;
                     }
+                }
+                if (dec==12) {
+                    if (scores[player-1][11]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        /*if ((ones==5)||(twos==5)||(threes==5)||(fours==5)||(fives==5)) scores[player-1][11]=50;
+                        else scores[player-1][11]=0;
+                        score2+=scores[player-1][11];*/
+                        invalid=false;
+                    } 
+                }
+                if (dec==13) {
+                    int sum=0;
+                    if (scores[player-1][12]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
+                    else {
+                        sum=(ones*1)+(twos*2)+(threes*3)+(fours*4)+(fives*5)+(sixes*6);
+                        scores[player-1][12]=sum;
+                        score2+=scores[player-1][12];
+                       
+                        invalid=false;
+                    }  
                 }
             } while(invalid);
             
@@ -767,6 +806,48 @@ int main(int argc, char** argv) {
             fours=0;
             fives=0;
             sixes=0;
+            
+            //Increment the Turns Variables
+            turns++;
+            
+            //Display Scores
+            cout<<"\n\n-----SCORES-----\n";
+            if (player==1) {
+                cout<<"Pl 1 Score: "<<score1<<" | Pl 2 Score: "<<score2<<endl;
+            }else {
+                cout<<"Pl 1 Score: "<<score2<<" | Pl 2 Score: "<<score1<<endl;
+
+            }
+            
+            //Check for Winner
+            if (turns==13) {
+                if (score1>score2) {
+                    if (player==1) {
+                        cout<<"Player 1 is the WINNER!!!"<<endl;
+                    } else {
+                        cout<<"Player 2 is the WINNER!!!"<<endl;
+                    }
+                    
+                    //Exit Program
+                    return 0;
+                }
+                if (score1<score2) {
+                    if (player==1) {
+                        cout<<"Player 2 is the WINNER!!!"<<endl;
+                    } else {
+                        cout<<"Player 1 is the WINNER!!!"<<endl;
+                    }
+                    
+                    //Exit Program
+                    return 0;
+                }
+                if (score1==score2) {
+                    cout<<"Player 1 and Player 2 TIED!!!"<<endl;
+                    
+                    //Exit Program
+                    return 0;
+                }
+            }
         }
     }
     
