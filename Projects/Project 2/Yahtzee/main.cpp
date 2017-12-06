@@ -23,12 +23,12 @@ using namespace std;
 int main(int argc, char** argv) {
 
     //Declare Variables
-    int player=1, ones=0, twos=0, threes=0, fours=0, fives=0, sixes=0, roll1, roll2, roll3, roll4, roll5, score1, score2;               //Declare Necessary Pre-Game Variables
+    int player=1, ones=0, twos=0, threes=0, fours=0, fives=0, sixes=0, roll1, roll2, roll3, roll4, roll5, score1, score2;                //Declare Necessary Pre-Game Variables
     int ones1=-1, ones2=-1, twos1=-1, twos2=-1, threes1=-1, threes2=-1, fours1=-1, fours2=-1, fives1=-1, fives2=-1, sixes1=-1, sixes2=-1;//The Upper Level Scoring Variables
-    int fh1=-1, fh2=-1, ls1=-1, ls2=-1, ss1=-1, ss2=-1, threeK1=-1, threeK2=-1, fourK1=-1, fourK2=-1, fiveK1=-1, fiveK2=-1;             //The Lower Level Scoring Variables
-    bool running=true;                                                                                                                  //Game Loop Expression Variable
-    int initial, sum1, sum2;                                                                                                            //Initial Variable to Either Start or Exit the Game
-    const int ROLLS = 5;                                                                                                                //The Variable to Hold Max Value for roll[]
+    int fh1=-1, fh2=-1, ss1=-1, ss2=-1, ls1=-1, ls2=-1, threeK1=-1, threeK2=-1, fourK1=-1, fourK2=-1, fiveK1=-1, fiveK2=-1;              //The Lower Level Scoring Variables
+    bool running=true;                                                                                                                   //Game Loop Expression Variable
+    int initial, sum1, sum2;                                                                                                             //Initial Variable to Either Start or Exit the Game
+    const int ROLLS = 5;                                                                                                                 //The Variable to Hold Max Value for roll[]
     
     //Validate Input
     do {
