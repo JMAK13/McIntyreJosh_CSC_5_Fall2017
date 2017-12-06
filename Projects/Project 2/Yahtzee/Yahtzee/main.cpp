@@ -5,20 +5,22 @@
  * Purpose: Recreation of the popular card game Yahtzee
  */
 
-//Function Prototypes
-void swapPl(int &);
-void displayBoard();
-
-//Global Constants
-
-//User Libraries
-
 //System Libraries
 #include <iostream>
 #include <iomanip>
 #include <ctime>
 #include <cstdlib>
+#include <string>
 using namespace std;
+
+//Function Prototypes
+void swapPl(int &);
+int roll();
+void displayBoard(int[2][13], const int &, string &, string &);
+
+//Global Constants
+
+//User Libraries
 
 //Execution Begins Here
 int main(int argc, char** argv) {
@@ -32,7 +34,7 @@ int main(int argc, char** argv) {
     int scores[ROW][COL]={{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
     const int MAX=5;
     int rolls[MAX]={};
-    string heading;
+    string header1,header2;
     
     //Validate Input
     do {
@@ -111,7 +113,7 @@ int main(int argc, char** argv) {
             cin.ignore();
             cin.get();
             for (int i=0; i<MAX; i++) {
-                rolls[i]=(rand()%6)+1;
+                rolls[i]=roll();
             }
             cout<<"Roll 1: "<<rolls[0]<<" | Roll 2: "<<rolls[1]<<" | Roll 3: "<<rolls[2]<<" | Roll 4: "<<rolls[3]<<" | Roll 5: "<<rolls[4]<<endl;
             sum1=rolls[0]+rolls[1]+rolls[2]+rolls[3]+rolls[4];
@@ -124,7 +126,7 @@ int main(int argc, char** argv) {
             cout<<"Player "<<player<<": Please press enter to roll the dice";
             cin.get();
             for (int i=0; i<MAX; i++) {
-                rolls[i]=(rand()%6)+1;
+                rolls[i]=roll();
             }
             cout<<"Roll 1: "<<rolls[0]<<" | Roll 2: "<<rolls[1]<<" | Roll 3: "<<rolls[2]<<" | Roll 4: "<<rolls[3]<<" | Roll 5: "<<rolls[4]<<endl;
             sum2=rolls[0]+rolls[1]+rolls[2]+rolls[3]+rolls[4];
@@ -144,26 +146,17 @@ int main(int argc, char** argv) {
         while (running) {
             
             int dec=0;
-            if (player==1)heading="Box|Pl 1 |Pl 2 ";
-            else if (player==2) heading="Box|Pl 2 |Pl 1 ";
+            if (player==1) {
+                header1="Box       |Pl 1 |Pl 2 ";
+                header2="Box             |Pl 1 |Pl 2 ";
+            }
+            else {
+                header1="Box       |Pl 2 |Pl 1 ";
+                header2="Box             |Pl 1 |Pl 2 ";
+            }
             
             //Display Score Board
-            cout<<endl<<endl<<endl;
-            cout<<"----UPPER SECTION----"<<endl;
-            cout<<heading<<endl;
-            for (int j=0; j<(COL-7); j++) {
-                    if (scores[0][j] == -1 && scores[1][j] == -1)      cout<<j+1<<" |     |     "<<endl;
-                    else if (scores[0][j] == -1 && scores[1][j] != -1) cout<<j+1<<" |     |  "<<scores[1][j]<<endl;
-                    else if (scores[0][j] != -1 && scores[1][j] != -1) cout<<j+1<<" |  "<<scores[0][j]<<"  |  "<<scores[1][j]<<endl;
-                    else if (scores[0][j] != -1 && scores[1][j] == -1) cout<<j+1<<" |  "<<scores[0][j]<<"  |     "<<endl;
-            }
-            cout<<"----LOWER SECTION----"<<endl;
-            for (int j=6; j<COL; j++) {
-                    if (scores[0][j] == -1 && scores[1][j] == -1)      cout<<j+1<<" |     |     "<<endl;
-                    else if (scores[0][j] == -1 && scores[1][j] != -1) cout<<j+1<<" |     |  "<<scores[1][j]<<endl;
-                    else if (scores[0][j] != -1 && scores[1][j] != -1) cout<<j+1<<" |  "<<scores[0][j]<<"  |  "<<scores[1][j]<<endl;
-                    else if (scores[0][j] != -1 && scores[1][j] == -1) cout<<j+1<<" |  "<<scores[0][j]<<"  |     "<<endl;
-            }
+            displayBoard(scores, COL, header1, header2);
             
             //First Player's Turn
             cout<<endl<<endl<<endl;
@@ -171,7 +164,7 @@ int main(int argc, char** argv) {
             cin.ignore();
             cin.get();
             for (int i=0; i<MAX; i++) {
-                rolls[i]=(rand()%6)+1;
+                rolls[i]=roll();
             }
             cout<<"Roll 1: "<<rolls[0]<<" | Roll 2: "<<rolls[1]<<" | Roll 3: "<<rolls[2]<<" | Roll 4: "<<rolls[3]<<" | Roll 5: "<<rolls[4]<<endl<<endl;
             
@@ -185,7 +178,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[0]=(rand()%6)+1;
+                            rolls[0]=roll();
                         }
                         break;
                     }
@@ -196,7 +189,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[1]=(rand()%6)+1;
+                            rolls[1]=roll();
                         }
                         break;
                     }
@@ -207,7 +200,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[2]=(rand()%6)+1;
+                            rolls[2]=roll();
                         }
                         break;
                     }
@@ -218,7 +211,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[3]=(rand()%6)+1;
+                            rolls[3]=roll();
                         }
                         break;
                     }
@@ -229,7 +222,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[4]=(rand()%6)+1;
+                            rolls[4]=roll();
                         }
                         break;
                     }
@@ -247,7 +240,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[0]=(rand()%6)+1;
+                            rolls[0]=roll();
                         }
                         break;
                     }
@@ -258,7 +251,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[1]=(rand()%6)+1;
+                            rolls[1]=roll();
                         }
                         break;
                     }
@@ -269,7 +262,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[2]=(rand()%6)+1;
+                            rolls[2]=roll();
                         }
                         break;
                     }
@@ -280,7 +273,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[3]=(rand()%6)+1;
+                            rolls[3]=roll();
                         }
                         break;
                     }
@@ -291,7 +284,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[4]=(rand()%6)+1;
+                            rolls[4]=roll();
                         }
                         break;
                     }
@@ -467,26 +460,10 @@ int main(int argc, char** argv) {
             fours=0;
             fives=0;
             sixes=0;
-            
             dec=0;
             
             //Display Score Board
-            cout<<endl<<endl<<endl;
-            cout<<"----UPPER SECTION----"<<endl;
-            cout<<heading<<endl;
-            for (int j=0; j<(COL-7); j++) {
-                    if (scores[0][j]==-1&&scores[1][j]==-1)      cout<<j+1<<" |     |     "<<endl;
-                    else if (scores[0][j]==-1 && scores[1][j]!=-1) cout<<j+1<<" |     |  "<<scores[1][j]<<endl;
-                    else if (scores[0][j]!=-1 && scores[1][j]!=-1) cout<<j+1<<" |  "<<scores[0][j]<<"  |  "<<scores[1][j]<<endl;
-                    else if (scores[0][j]!=-1 && scores[1][j]==-1) cout<<j+1<<" |  "<<scores[0][j]<<"  |     "<<endl;
-            }
-            cout<<"----LOWER SECTION----"<<endl;
-            for (int j=6; j<COL; j++) {
-                    if (scores[0][j]==-1 && scores[1][j]==-1)      cout<<j+1<<" |     |     "<<endl;
-                    else if (scores[0][j]==-1 && scores[1][j]!=-1) cout<<j+1<<" |     |  "<<scores[1][j]<<endl;
-                    else if (scores[0][j]!=-1 && scores[1][j]!=-1) cout<<j+1<<" |  "<<scores[0][j]<<"  |  "<<scores[1][j]<<endl;
-                    else if (scores[0][j]!=-1 && scores[1][j]==-1) cout<<j+1<<" |  "<<scores[0][j]<<"  |     "<<endl;
-            }
+            displayBoard(scores, COL, header1, header2);
             
             //Second Player's Turn
             cout<<endl<<endl<<endl;
@@ -494,7 +471,7 @@ int main(int argc, char** argv) {
             cin.ignore();
             cin.get();
             for (int i=0; i<MAX; i++) {
-                rolls[i]=(rand()%6)+1;
+                rolls[i]=roll();
             }
             cout<<"Roll 1: "<<rolls[0]<<" | Roll 2: "<<rolls[1]<<" | Roll 3: "<<rolls[2]<<" | Roll 4: "<<rolls[3]<<" | Roll 5: "<<rolls[4]<<endl<<endl;
             
@@ -508,7 +485,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[0]=(rand()%6)+1;
+                            rolls[0]=roll();
                         }
                         break;
                     }
@@ -519,7 +496,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[1]=(rand()%6)+1;
+                            rolls[1]=roll();
                         }
                         break;
                     }
@@ -530,7 +507,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[2]=(rand()%6)+1;
+                            rolls[2]=roll();
                         }
                         break;
                     }
@@ -541,7 +518,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[3]=(rand()%6)+1;
+                            rolls[3]=roll();
                         }
                         break;
                     }
@@ -552,7 +529,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[4]=(rand()%6)+1;
+                            rolls[4]=roll();
                         }
                         break;
                     }
@@ -570,7 +547,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[0]=(rand()%6)+1;
+                            rolls[0]=roll();
                         }
                         break;
                     }
@@ -581,7 +558,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[1]=(rand()%6)+1;
+                            rolls[1]=roll();
                         }
                         break;
                     }
@@ -592,7 +569,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[2]=(rand()%6)+1;
+                            rolls[2]=roll();
                         }
                         break;
                     }
@@ -603,7 +580,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[3]=(rand()%6)+1;
+                            rolls[3]=roll();
                         }
                         break;
                     }
@@ -614,7 +591,7 @@ int main(int argc, char** argv) {
                             cin>>reroll;
                         } while(reroll!=0&&reroll!=1);
                         if (reroll==0) {
-                            rolls[4]=(rand()%6)+1;
+                            rolls[4]=roll();
                         }
                         break;
                     }
@@ -803,7 +780,85 @@ void swapPl(int &player) {
     else player=1;
 }
 
-//Display Board
-void displayBoard() {
-    
+//Roll Dice Function
+int roll() {
+    return (rand()%6)+1;
+}
+
+//Display Board Function
+void displayBoard(int scores[2][13], const int &COL, string &header1, string &header2) {
+    string box;
+            cout<<endl<<endl<<endl;
+            cout<<"----UPPER SECTION----"<<endl;
+            cout<<header1<<endl;
+            for (int j=0; j<(COL-7); j++) {
+                switch (j) {
+                    case 0: {
+                        box="Ones  ";
+                        break;
+                    }
+                    case 1: {
+                        box="Twos  ";
+                        break;
+                    }
+                    case 2: {
+                        box="Threes";
+                        break;
+                    }
+                    case 3: {
+                        box="Fours ";
+                        break;
+                    }
+                    case 4: {
+                        box="Fives ";
+                        break;
+                    }
+                    case 5: {
+                        box="Sixes ";
+                        break;
+                    }
+                }
+                    if (scores[0][j]==-1&&scores[1][j]==-1)      cout<<j+1<<") "<<box<<" |     |     "<<endl;
+                    else if (scores[0][j]==-1 && scores[1][j]!=-1) cout<<j+1<<") "<<box<<" |     |  "<<scores[1][j]<<endl;
+                    else if (scores[0][j]!=-1 && scores[1][j]!=-1) cout<<j+1<<") "<<box<<" |  "<<scores[0][j]<<"  |  "<<scores[1][j]<<endl;
+                    else if (scores[0][j]!=-1 && scores[1][j]==-1) cout<<j+1<<") "<<box<<" |  "<<scores[0][j]<<"  |     "<<endl;
+            }
+            cout<<"----LOWER SECTION----"<<endl;
+            cout<<header2<<endl;
+            for (int j=6; j<COL; j++) {
+                switch (j) {
+                    case 6: {
+                        box="Small Str   ";
+                        break;
+                    }
+                    case 7: {
+                        box="Large Str   ";
+                        break;
+                    }
+                    case 8: {
+                        box="3 of a Kind ";
+                        break;
+                    }
+                    case 9: {
+                        box="4 of a Kind";
+                        break;
+                    }
+                    case 10: {
+                        box="5 of a Kind";
+                        break;
+                    }
+                    case 11: {
+                        box="Full House ";
+                        break;
+                    }
+                    case 12: {
+                        box="CHANCE     ";
+                        break;
+                    }
+                }
+                    if (scores[0][j]==-1 && scores[1][j]==-1)      cout<<j+1<<") "<<box<<" |     |     "<<endl;
+                    else if (scores[0][j]==-1 && scores[1][j]!=-1) cout<<j+1<<") "<<box<<" |     |  "<<scores[1][j]<<endl;
+                    else if (scores[0][j]!=-1 && scores[1][j]!=-1) cout<<j+1<<") "<<box<<" |  "<<scores[0][j]<<"  |  "<<scores[1][j]<<endl;
+                    else if (scores[0][j]!=-1 && scores[1][j]==-1) cout<<j+1<<") "<<box<<" |  "<<scores[0][j]<<"  |     "<<endl;
+            }
 }
