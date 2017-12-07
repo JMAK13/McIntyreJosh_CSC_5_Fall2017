@@ -29,10 +29,8 @@ int main(int argc, char** argv) {
     int player=1,ones=0,twos=0,threes=0,fours=0,fives=0,sixes=0,score1=0,score2=0;
     bool running=true;
     int initial,sum1,sum2;
-    const int ROW=2;
-    const int COL=13;
+    const int ROW=2,COL=13,MAX=5;
     int scores[ROW][COL]={{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
-    const int MAX=5;
     int rolls[MAX]={};
     string header1,header2;
     int turns=0;
@@ -450,9 +448,13 @@ int main(int argc, char** argv) {
                 if (dec==12) {
                     if (scores[player-1][11]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
-                        /*if ((ones==5)||(twos==5)||(threes==5)||(fours==5)||(fives==5)) scores[player-1][11]=50;
+                        if ((ones==2&&(twos==3||threes==3||fours==3||fives==3||sixes==3))||(ones==3&&(twos==2||threes==2||fours==2||fives==2||sixes==2))
+                                ||(twos==2&&(threes==3||fours==3||fives==3||sixes==3))||(twos==3&&(threes==2||fours==2||fives==2||sixes==2))
+                                ||(threes==2&&(fours==3||fives==3||sixes==3))||(threes==3&&(fours==2||fives==2||sixes==2))
+                                ||(fours==2&&(fives==3||sixes==3))||(fours==3&&(fives==2||sixes==2))
+                                ||(fives==2&&sixes==3)||(fives==3&&sixes==2)) scores[player-1][11]=50;
                         else scores[player-1][11]=0;
-                        score2+=scores[player-1][11];*/
+                        score1+=scores[player-1][11];
                         invalid=false;
                     } 
                 }
@@ -462,7 +464,7 @@ int main(int argc, char** argv) {
                     else {
                         sum=(ones*1)+(twos*2)+(threes*3)+(fours*4)+(fives*5)+(sixes*6);
                         scores[player-1][12]=sum;
-                        score2+=scores[player-1][12];
+                        score1+=scores[player-1][12];
                        
                         invalid=false;
                     }  
@@ -779,9 +781,13 @@ int main(int argc, char** argv) {
                 if (dec==12) {
                     if (scores[player-1][11]!=-1) {cout<<"You have already marked that box!"<<endl; invalid=true;}
                     else {
-                        /*if ((ones==5)||(twos==5)||(threes==5)||(fours==5)||(fives==5)) scores[player-1][11]=50;
+                        if ((ones==2&&(twos==3||threes==3||fours==3||fives==3||sixes==3))||(ones==3&&(twos==2||threes==2||fours==2||fives==2||sixes==2))
+                                ||(twos==2&&(threes==3||fours==3||fives==3||sixes==3))||(twos==3&&(threes==2||fours==2||fives==2||sixes==2))
+                                ||(threes==2&&(fours==3||fives==3||sixes==3))||(threes==3&&(fours==2||fives==2||sixes==2))
+                                ||(fours==2&&(fives==3||sixes==3))||(fours==3&&(fives==2||sixes==2))
+                                ||(fives==2&&sixes==3)||(fives==3&&sixes==2)) scores[player-1][11]=50;
                         else scores[player-1][11]=0;
-                        score2+=scores[player-1][11];*/
+                        score2+=scores[player-1][11];
                         invalid=false;
                     } 
                 }
