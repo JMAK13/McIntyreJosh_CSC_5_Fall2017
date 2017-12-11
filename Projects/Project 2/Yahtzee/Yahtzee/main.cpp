@@ -11,12 +11,14 @@
 #include <ctime>
 #include <cstdlib>
 #include <string>
+#include <fstream>
 using namespace std;
 
 //Function Prototypes
-void swapPl(int &);
-int roll();
-void displayBoard(int[2][13], const int &, string &, string &);
+void swapPl(int &);                                             //Switch player function
+int roll();                                                     //Roll dice function
+void displayBoard(int[2][13], const int &, string &, string &); //Display scoreboard function
+void sort(int arr[], int size);                                 //Sorts arrays from values greatest to least
 
 //Global Constants
 
@@ -26,14 +28,16 @@ void displayBoard(int[2][13], const int &, string &, string &);
 int main(int argc, char** argv) {
 
     //Declare Variables
-    int player=1,ones=0,twos=0,threes=0,fours=0,fives=0,sixes=0,score1=0,score2=0;
-    bool running=true;
-    int initial,sum1,sum2;
-    const int ROW=2,COL=13,MAX=5;
-    int scores[ROW][COL]={{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
-    int rolls[MAX]={};
-    string header1,header2;
-    int turns=0;
+    int player=1,ones=0,twos=0,threes=0,fours=0,fives=0,sixes=0,score1=0,score2=0;                              //Player, score, and dice variables
+    bool running=true;                                                                                          //Game loop variable
+    int initial,sum1,sum2;                                                                                      //Initial roll variables
+    const int ROW=2,COL=13,MAX=5,SCORES=10;                                                                     //Array constants
+    int scores[ROW][COL]={{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};   //2D score-keeping array
+    int rolls[MAX]={},scoreboard[SCORES]={};                                                                                //1D array for holding dice value
+    string header1,header2;                                                                                     //Scoreboard headers
+    int turns=0;                                                                                                //Turn counter variable
+    ofstream outFile;                                                                                        //Output file stream object
+    ifstream inFile;                                                                                         //Input file stream object
     
     //Validate Input
     do {
@@ -43,8 +47,9 @@ int main(int argc, char** argv) {
         cout<<"Press 0 to Exit"<<endl;
         cout<<"Press 1 to Start"<<endl;
         cout<<"Press 2 for Rules"<<endl;
+        cout<<"Press 3 to view the Scoreboard"<<endl;
         cin>>initial;
-    } while(initial!=0&&initial!=1&&initial!=2);
+    } while(initial!=0&&initial!=1&&initial!=2&&initial!=3);
     
     //If User Input 0 - Exit
     if (initial==0) {
@@ -86,6 +91,31 @@ int main(int argc, char** argv) {
             cout<<"Press 1 to Start"<<endl;
             cin>>initial;
         } while(initial!=0&&initial!=1);
+    }
+    
+    //If User Input 3 - Show Scores
+    if (initial==3) {
+        int count=0;
+        
+        inFile.open("scores.txt");
+        inFile>>scoreboard[0];
+        inFile>>scoreboard[1];
+        inFile>>scoreboard[2];
+        inFile>>scoreboard[3];
+        inFile>>scoreboard[4];
+        inFile>>scoreboard[5];
+        inFile>>scoreboard[6];
+        inFile>>scoreboard[7];
+        inFile>>scoreboard[8];
+        inFile>>scoreboard[9];
+        inFile.close();
+        sort(scoreboard, SCORES);
+        for (int i=0;i<SCORES;i++) {
+            if (scoreboard[i]!=0) {
+                count++;
+                cout<<count<<") "<<scoreboard[i]<<endl;
+            }
+        }
     }
     
     //If User Input 0 - Exit
@@ -830,18 +860,40 @@ int main(int argc, char** argv) {
                 if (score1>score2) {
                     if (player==1) {
                         cout<<"Player 1 is the WINNER!!!"<<endl;
+                        
+                        //Records scores in text file
+                        outFile.open("scores.txt");
+                        outFile<<score1<<endl;
+                        outFile.close();
                     } else {
                         cout<<"Player 2 is the WINNER!!!"<<endl;
+                        
+                        //Records scores in text file
+                        outFile.open("scores.txt");
+                        outFile<<score2<<endl;
+                        outFile.close();
                     }
                     
                     //Exit Program
                     return 0;
                 }
                 if (score1<score2) {
+                    string name;
+                    
                     if (player==1) {
                         cout<<"Player 2 is the WINNER!!!"<<endl;
+                        
+                        //Records scores in text file
+                        outFile.open("scores.txt");
+                        outFile<<score2<<endl;
+                        outFile.close();
                     } else {
                         cout<<"Player 1 is the WINNER!!!"<<endl;
+                        
+                        //Records scores in text file
+                        outFile.open("scores.txt");
+                        outFile<<score1<<endl;
+                        outFile.close();
                     }
                     
                     //Exit Program
@@ -849,6 +901,7 @@ int main(int argc, char** argv) {
                 }
                 if (score1==score2) {
                     cout<<"Player 1 and Player 2 TIED!!!"<<endl;
+                    cout<<"Your scores were not recorded as a result, sorry :("<<endl;
                     
                     //Exit Program
                     return 0;
@@ -948,4 +1001,24 @@ void displayBoard(int scores[2][13], const int &COL, string &header1, string &he
                     else if (scores[0][j]!=-1 && scores[1][j]!=-1) cout<<j+1<<") "<<box<<" |  "<<scores[0][j]<<"  |  "<<scores[1][j]<<endl;
                     else if (scores[0][j]!=-1 && scores[1][j]==-1) cout<<j+1<<") "<<box<<" |  "<<scores[0][j]<<"  |     "<<endl;
             }
+}
+
+//Array Sorting Function (Greatest --> Least)
+void sort(int array[], int size) {
+    int startScan, maxIndex, maxValue;
+
+    for (startScan=0;startScan<(size-1);startScan++) {
+        maxIndex = startScan;
+        maxValue = array[startScan];
+
+        for(int index = startScan + 1; index < size; index++) {
+            if (array[index] > maxValue) {
+                maxValue = array[index];
+                maxIndex = index;
+                }
+            }
+        
+        array[maxIndex] = array[startScan];
+        array[startScan] = maxValue;
+    }
 }
